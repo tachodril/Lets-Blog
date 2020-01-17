@@ -1,43 +1,29 @@
 const express = require("express");
-//const MongoClient = require("mongodb").MongoClient;
-const assert = require("assert");
+const userRouter = require("./routes/usersRouter");
 const mongoose = require("mongoose");
+const assert = require("assert");
+const bodyParser = require("body-parser");
 
 const app = express();
+app.use(bodyParser.urlencoded({ extended: false }));
 
-mongoose.connect("mongodb://localhost/test", { useNewUrlParser: true });
-
-var db = mongoose.connection;
-db.on("error", console.error.bind(console, "connection error:"));
-db.once("open", function() {
-  console.log("connected likewise...");
-});
-
-var my_schema = new mongoose.Schema({
-  name: String
-});
-var my_model = mongoose.model('Kitten',my_schema);
-
-var model1 = new my_model({name:ritik});
-console.log(model1.name);
-
-
-// const url = "mongodb://127.0.0.1:27017";
-
-// const dbName = "Lets-Blog";
+const url = "mongodb://localhost:27017/lets-blog";
+mongoose.connect(
+  url,
+  { useNewUrlParser: true, useUnifiedTopology: true },
+  () => {
+    console.log("connected to database server");
+  }
+);
 // const client = new MongoClient(url);
-
-// client.connect(function(err) {
+// client.connect((err, client) => {
 //   assert.equal(null, err);
-//   console.log("Connected successfully to mongoDb Server...");
-
-//   const db = client.db(dbName);
-
-//   client.close();
 // });
 
+app.use("/users", userRouter);
+
 app.get("/", (req, res) => {
-  res.send("server running fine !!");
+  res.send("Node server running fine !!");
 });
 
 app.listen(4000, () => {
