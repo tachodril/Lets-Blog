@@ -14,7 +14,7 @@ var blog_schema = new Schema({
     required: true
   },
   date: {
-    type: Date,
+    type: String,
     required: true
   }
 });

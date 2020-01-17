@@ -1,6 +1,9 @@
 const express = require("express");
+
 const userRouter = require("./routes/usersRouter");
 const blogsRouter = require("./routes/blogsRouter");
+const createBlogRouter = require("./routes/createBlogRouter");
+
 const mongoose = require("mongoose");
 const assert = require("assert");
 const bodyParser = require("body-parser");
@@ -19,6 +22,7 @@ mongoose.connect(
 
 app.use("/blogs", blogsRouter);
 app.use("/users", userRouter);
+app.use("/create_blog", createBlogRouter);
 
 app.get("/", (req, res) => {
   res.send("Node server running fine !!");

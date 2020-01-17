@@ -23,7 +23,7 @@ usersRouter
           user
             .save()
             .then(r => res.status(200).send(r))
-            .catch(e => res.send("++++"));
+            .catch(e => res.send(e));
         } else {
           res.status(404).send("Already found");
         }
