@@ -1,5 +1,6 @@
 const express = require("express");
 const userRouter = require("./routes/usersRouter");
+const blogsRouter = require("./routes/blogsRouter");
 const mongoose = require("mongoose");
 const assert = require("assert");
 const bodyParser = require("body-parser");
@@ -15,11 +16,8 @@ mongoose.connect(
     console.log("connected to database server");
   }
 );
-// const client = new MongoClient(url);
-// client.connect((err, client) => {
-//   assert.equal(null, err);
-// });
 
+app.use("/blogs", blogsRouter);
 app.use("/users", userRouter);
 
 app.get("/", (req, res) => {
