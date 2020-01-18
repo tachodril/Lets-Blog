@@ -9,9 +9,6 @@ createblogRouter.post("/", (req, res) => {
   var mdate = req.body.date;
 
   console.log(req.body);
-  // Blog.create(req.body)
-  //   .then(res3 => console.log("success"))
-  //   .catch(err => console.log(err));
 
   var newBlog = new Blog({
     sender: msender,

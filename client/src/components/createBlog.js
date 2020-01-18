@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Button from "@material-ui/core/Button";
 import axios from "axios";
+import { Redirect } from "react-router-dom";
 
 var titleStyle = {
   width: "50%",
@@ -41,7 +42,8 @@ class createBlog extends Component {
     super(props);
     this.state = {
       mtitle: "",
-      mcontent: ""
+      mcontent: "",
+      redirect_flag: 0
     };
     this.updatetitle = this.updatetitle.bind(this);
     this.updatecontent = this.updatecontent.bind(this);
@@ -70,42 +72,49 @@ class createBlog extends Component {
       })
       .then(res => {
         console.log(res);
+        this.setState({ redirect_flag: 1 });
       })
       .catch(err => console.log(err));
   }
   render() {
-    return (
-      <form>
-        <div>
-          <label style={labelStyle}>Title :</label>
-          <input
-            value={this.state.mtitle}
-            onChange={evt => this.updatetitle(evt)}
-            type="text"
-            style={titleStyle}
-          />
-        </div>
-        <div>
-          <label style={labelStyle}>Content :</label>
-          <textarea
-            value={this.state.mcontent}
-            onChange={evt => this.updatecontent(evt)}
-            rows="3"
-            style={contentStyle}
-          ></textarea>
-        </div>
-        <div>
-          <Button
-            onClick={() => this.send_button()}
-            style={buttonStyle}
-            variant="contained"
-            color="secondary"
-          >
-            Publish
-          </Button>
-        </div>
-      </form>
-    );
+    var { redirect_flag } = this.state;
+
+    if (redirect_flag) {
+      return <Redirect to="/"></Redirect>;
+    } else {
+      return (
+        <form>
+          <div>
+            <label style={labelStyle}>Title :</label>
+            <input
+              value={this.state.mtitle}
+              onChange={evt => this.updatetitle(evt)}
+              type="text"
+              style={titleStyle}
+            />
+          </div>
+          <div>
+            <label style={labelStyle}>Content :</label>
+            <textarea
+              value={this.state.mcontent}
+              onChange={evt => this.updatecontent(evt)}
+              rows="3"
+              style={contentStyle}
+            ></textarea>
+          </div>
+          <div>
+            <Button
+              onClick={() => this.send_button()}
+              style={buttonStyle}
+              variant="contained"
+              color="secondary"
+            >
+              Publish
+            </Button>
+          </div>
+        </form>
+      );
+    }
   }
 }
 
