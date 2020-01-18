@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Button from "@material-ui/core/Button";
+import axios from "axios";
 
 var titleStyle = {
   width: "50%",
@@ -34,27 +35,68 @@ var buttonStyle = {
   marginLeft: "300px",
   marginTop: "50px"
 };
+
 class createBlog extends Component {
-  state = {
-    title: "",
-    content: "",
-    sender: ""
-  };
-  send_button() {}
+  constructor(props) {
+    super(props);
+    this.state = {
+      mtitle: "",
+      mcontent: ""
+    };
+    this.updatetitle = this.updatetitle.bind(this);
+    this.updatecontent = this.updatecontent.bind(this);
+    this.send_button = this.send_button.bind(this);
+  }
+
+  updatetitle(evt) {
+    this.setState({
+      mtitle: evt.target.value
+    });
+  }
+  updatecontent(evt) {
+    this.setState({
+      mcontent: evt.target.value
+    });
+  }
+  send_button() {
+    var t = this.state.mtitle;
+    var c = this.state.mcontent;
+    axios
+      .post("http://localhost:7000/create_blog", {
+        title: t,
+        content: c,
+        sender: "Ritik",
+        date: "Today"
+      })
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => console.log(err));
+  }
   render() {
     return (
       <form>
         <div>
           <label style={labelStyle}>Title :</label>
-          <input value={this.state.title} type="text" style={titleStyle} />
+          <input
+            value={this.state.mtitle}
+            onChange={evt => this.updatetitle(evt)}
+            type="text"
+            style={titleStyle}
+          />
         </div>
         <div>
           <label style={labelStyle}>Content :</label>
-          <textarea id="mcontent" rows="3" style={contentStyle}></textarea>
+          <textarea
+            value={this.state.mcontent}
+            onChange={evt => this.updatecontent(evt)}
+            rows="3"
+            style={contentStyle}
+          ></textarea>
         </div>
         <div>
           <Button
-            onClick={this.send_button}
+            onClick={() => this.send_button()}
             style={buttonStyle}
             variant="contained"
             color="secondary"
