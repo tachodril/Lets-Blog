@@ -53,10 +53,7 @@ export default function MediaCard(props) {
       </CardActionArea>
       <CardActions>
         <Button size="small" color="primary">
-          {props.blog_data.sender}
-        </Button>
-        <Button size="small" color="primary">
-          Learn More
+          Published by - {props.blog_data.sender}
         </Button>
       </CardActions>
     </Card>
