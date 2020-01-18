@@ -1,14 +1,14 @@
 const express = require("express");
-
+const cors = require("cors");
 const userRouter = require("./routes/usersRouter");
 const blogsRouter = require("./routes/blogsRouter");
 const createBlogRouter = require("./routes/createBlogRouter");
 
 const mongoose = require("mongoose");
-const assert = require("assert");
 const bodyParser = require("body-parser");
 
 const app = express();
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 const url = "mongodb://localhost:27017/lets-blog";
@@ -28,6 +28,6 @@ app.get("/", (req, res) => {
   res.send("Node server running fine !!");
 });
 
-app.listen(4000, () => {
-  console.log("server running at port no. 4000");
+app.listen(7000, () => {
+  console.log("Server running at port no. 7000");
 });
