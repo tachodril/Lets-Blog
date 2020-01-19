@@ -6,26 +6,26 @@ const jwt = require("jsonwebtoken");
 const jwtKey = "levelofquality";
 
 createblogRouter.post("/", (req, res) => {
-  const token = req.body.token.data;
+  // const token = req.body.token.data;
 
-  console.log("blogRouter");
+  // console.log("blogRouter");
 
-  console.log(req.body.token.data);
+  // console.log(req.body.token.data);
 
-  if (!token) {
-    return res.status(401).end();
-  }
+  // if (!token) {
+  //   return res.status(401).end();
+  // }
 
-  var payload;
-  try {
-    payload = jwt.verify(token, jwtKey);
-  } catch (e) {
-    if (e instanceof jwt.JsonWebTokenError) {
-      return res.status(401).end();
-    }
+  // var payload;
+  // try {
+  //   payload = jwt.verify(token, jwtKey);
+  // } catch (e) {
+  //   if (e instanceof jwt.JsonWebTokenError) {
+  //     return res.status(401).end();
+  //   }
 
-    return res.status(400).end();
-  }
+  //   return res.status(400).end();
+  // }
 
   var msender = req.body.sender;
   var mtitle = req.body.title;

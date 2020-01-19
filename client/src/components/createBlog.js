@@ -52,6 +52,13 @@ class createBlog extends Component {
     this.send_button = this.send_button.bind(this);
   }
 
+  componentWillMount() {
+    var mls = ls.get("token");
+    if (mls === null) {
+      this.setState({ redirect_login_flag: 1 });
+    }
+  }
+
   updatetitle(evt) {
     this.setState({
       mtitle: evt.target.value
@@ -80,7 +87,7 @@ class createBlog extends Component {
         this.setState({ redirect_flag: 1 });
       })
       .catch(err => {
-        this.setState({ redirect_login_flag: 1 });
+        //this.setState({ redirect_login_flag: 1 });
         console.log(err);
       });
   }
