@@ -56,6 +56,7 @@ class createBlog extends Component {
     var mls = ls.get("token");
     if (mls === null) {
       this.setState({ redirect_login_flag: 1 });
+      alert("Please Sign in to publish a blog...");
     }
   }
 

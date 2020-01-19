@@ -25,7 +25,16 @@ usersRouter
           });
           user
             .save()
-            .then(r => res.status(200).send(r))
+            .then(r => {
+              const token = jwt.sign({ musername }, jwtKey, {
+                algorithm: "HS256"
+              });
+              console.log(token + " login ends here...");
+              //res.cookie("token", token).end();
+              res.status(200).send(token);
+
+              //res.status(200).send(r);
+            })
             .catch(e => res.send(e));
         } else {
           res.status(404).send("Already found");

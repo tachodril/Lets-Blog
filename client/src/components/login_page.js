@@ -29,7 +29,8 @@ class Login extends Component {
   state = {
     musername: "",
     mpassword: "",
-    redirect_flag: 0
+    redirect_flag: 0,
+    moveToSignUp: 0
   };
   updateUsername(evt) {
     this.setState({
@@ -64,43 +65,62 @@ class Login extends Component {
       });
   }
 
-  render() {
-    var { redirect_flag } = this.state;
-    if (redirect_flag) {
-      return <Redirect to="/"></Redirect>;
+  openSignUp() {
+    {
+      this.setState({ moveToSignUp: 1 });
     }
-    return (
-      <form>
-        <div style={{ marginLeft: "25%" }}>
-          <label style={labelStyle}>UserName :</label>
-          <input
-            value={this.state.musername}
-            onChange={evt => this.updateUsername(evt)}
-            type="text"
-            style={titleStyle}
-          />
-        </div>
-        <div style={{ marginLeft: "25%" }}>
-          <label style={labelStyle}>PassWord :</label>
-          <input
-            value={this.state.mpassword}
-            onChange={evt => this.updatePassword(evt)}
-            type="text"
-            style={titleStyle}
-          />
-        </div>
-        <div>
-          <Button
-            onClick={() => this.login_button()}
-            style={buttonStyle}
-            variant="contained"
-            color="secondary"
-          >
-            Login
-          </Button>
-        </div>
-      </form>
-    );
+  }
+
+  render() {
+    var { redirect_flag, moveToSignUp } = this.state;
+    if (moveToSignUp) {
+      return <Redirect to="/users/signup"></Redirect>;
+    } else if (redirect_flag) {
+      return <Redirect to="/"></Redirect>;
+    } else {
+      return (
+        <form>
+          <div style={{ marginLeft: "25%" }}>
+            <label style={labelStyle}>UserName :</label>
+            <input
+              value={this.state.musername}
+              onChange={evt => this.updateUsername(evt)}
+              type="text"
+              style={titleStyle}
+            />
+          </div>
+          <div style={{ marginLeft: "25%" }}>
+            <label style={labelStyle}>PassWord :</label>
+            <input
+              value={this.state.mpassword}
+              onChange={evt => this.updatePassword(evt)}
+              type="text"
+              style={titleStyle}
+            />
+          </div>
+          <div>
+            <Button
+              onClick={() => this.login_button()}
+              style={buttonStyle}
+              variant="contained"
+              color="primary"
+            >
+              Login
+            </Button>
+          </div>
+          <div>
+            <Button
+              onClick={() => this.openSignUp()}
+              style={buttonStyle}
+              variant="contained"
+              color="secondary"
+            >
+              New User ? Sign Up
+            </Button>
+          </div>
+        </form>
+      );
+    }
   }
 }
 

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Button from "@material-ui/core/Button";
 import axios from "axios";
 import { Redirect } from "react-router-dom";
+import ls from "local-storage";
 var titleStyle = {
   width: "50%",
   padding: "10px",
@@ -51,6 +52,7 @@ class Signup extends Component {
       })
       .then(res => {
         console.log(res);
+        ls.set("token", res);
         this.setState({ redirect_flag: 1 });
       })
       .catch(err => {
@@ -89,9 +91,21 @@ class Signup extends Component {
             onClick={() => this.signup_button()}
             style={buttonStyle}
             variant="contained"
-            color="secondary"
+            color="primary"
           >
             Signup
+          </Button>
+        </div>
+        <div>
+          <Button
+            onClick={() => {
+              this.setState({ redirect_flag: 1 });
+            }}
+            style={buttonStyle}
+            variant="contained"
+            color="secondary"
+          >
+            Go to Home
           </Button>
         </div>
       </form>
