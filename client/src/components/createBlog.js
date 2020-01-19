@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Button from "@material-ui/core/Button";
 import axios from "axios";
 import { Redirect } from "react-router-dom";
+import ls from "local-storage";
 
 var titleStyle = {
   width: "50%",
@@ -43,7 +44,8 @@ class createBlog extends Component {
     this.state = {
       mtitle: "",
       mcontent: "",
-      redirect_flag: 0
+      redirect_flag: 0,
+      redirect_login_flag: 0
     };
     this.updatetitle = this.updatetitle.bind(this);
     this.updatecontent = this.updatecontent.bind(this);
@@ -63,23 +65,31 @@ class createBlog extends Component {
   send_button() {
     var t = this.state.mtitle;
     var c = this.state.mcontent;
+    var mls = ls.get("token");
+    console.log(mls);
     axios
       .post("http://localhost:7000/create_blog", {
         title: t,
         content: c,
         sender: "Ritik",
-        date: "Today"
+        date: "Today",
+        token: mls
       })
       .then(res => {
         console.log(res);
         this.setState({ redirect_flag: 1 });
       })
-      .catch(err => console.log(err));
+      .catch(err => {
+        this.setState({ redirect_login_flag: 1 });
+        console.log(err);
+      });
   }
   render() {
-    var { redirect_flag } = this.state;
+    var { redirect_flag, redirect_login_flag } = this.state;
 
-    if (redirect_flag) {
+    if (redirect_login_flag) {
+      return <Redirect to="/users/signin"></Redirect>;
+    } else if (redirect_flag) {
       return <Redirect to="/"></Redirect>;
     } else {
       return (
