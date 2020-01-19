@@ -12,6 +12,7 @@ const FileStore = require("session-file-store")(session);
 const cookieParser = require("cookie-parser");
 
 const app = express();
+app.use(cookieParser());
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -23,8 +24,6 @@ mongoose.connect(
     console.log("connected to database server");
   }
 );
-
-app.use(cookieParser());
 
 app.use("/blogs", blogsRouter);
 app.use("/users", userRouter);

@@ -5,8 +5,13 @@ const jwt = require("jsonwebtoken");
 
 const jwtKey = "levelofquality";
 
-blogsRouter.get("/", (req, res, next) => {
-  const token = req.cookies.token;
+blogsRouter.post("/", (req, res, next) => {
+  const token = req.body.token.data;
+
+  console.log("blogRouter");
+
+  console.log(req.body.token.data);
+
   if (!token) {
     return res.status(401).end();
   }

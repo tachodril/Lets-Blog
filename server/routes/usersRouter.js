@@ -54,8 +54,9 @@ usersRouter
         const token = jwt.sign({ musername }, jwtKey, {
           algorithm: "HS256"
         });
-        console.log(token);
-        res.cookie("token", token).end();
+        console.log(token + " login ends here...");
+        //res.cookie("token", token).end();
+        res.send(token);
       })
       .catch(e => res.send(e));
   });

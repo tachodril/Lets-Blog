@@ -3,6 +3,7 @@ import Button from "@material-ui/core/Button";
 import Blog from "./blog_card";
 import axios from "axios";
 import { Redirect } from "react-router-dom";
+import ls from "local-storage";
 
 var buttonStyle = {
   padding: "10px",
@@ -19,8 +20,11 @@ class Home extends Component {
   };
 
   componentWillMount() {
+    var mls = ls.get("token");
+    console.log(mls);
+
     axios
-      .get("http://localhost:7000/blogs")
+      .post("http://localhost:7000/blogs", { token: mls })
       .then(results => {
         this.setState({ isLoaded: true, blogList: results.data });
         console.log(this.state.blogList);

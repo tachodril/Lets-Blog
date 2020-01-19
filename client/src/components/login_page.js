@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Button from "@material-ui/core/Button";
 import axios from "axios";
 import { Redirect } from "react-router-dom";
+import ls from "local-storage";
 var titleStyle = {
   width: "50%",
   padding: "10px",
@@ -51,6 +52,10 @@ class Login extends Component {
       })
       .then(res => {
         console.log(res);
+        console.log("level react login");
+        ls.set("token", res);
+        console.log(ls.get("token"));
+
         this.setState({ redirect_flag: 1 });
       })
       .catch(err => {
