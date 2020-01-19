@@ -6,6 +6,7 @@ import "./App.css";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Home from "./components/home";
 import Login from "./components/login_page";
+import Signup from "./components/signup_page";
 
 class App extends Component {
   render() {
@@ -21,6 +22,9 @@ class App extends Component {
             </Route>
             <Route path="/users/login">
               <Login />
+            </Route>
+            <Route to="/users/signup">
+              <Signup />
             </Route>
           </Switch>
         </div>

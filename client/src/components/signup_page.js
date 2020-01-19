@@ -24,7 +24,7 @@ var buttonStyle = {
   marginLeft: "50%",
   marginTop: "50px"
 };
-class Login extends Component {
+class Signup extends Component {
   state = {
     musername: "",
     mpassword: "",
@@ -41,11 +41,11 @@ class Login extends Component {
     });
   }
 
-  login_button() {
+  signup_button() {
     var t = this.state.musername;
     var c = this.state.mpassword;
     axios
-      .post("http://localhost:7000/users/signin", {
+      .post("http://localhost:7000/users/signup", {
         username: t,
         password: c
       })
@@ -54,7 +54,7 @@ class Login extends Component {
         this.setState({ redirect_flag: 1 });
       })
       .catch(err => {
-        alert("User not found");
+        alert("User already exists...");
         console.log(err);
       });
   }
@@ -86,12 +86,12 @@ class Login extends Component {
         </div>
         <div>
           <Button
-            onClick={() => this.login_button()}
+            onClick={() => this.signup_button()}
             style={buttonStyle}
             variant="contained"
             color="secondary"
           >
-            Login
+            Signup
           </Button>
         </div>
       </form>
@@ -99,4 +99,4 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default Signup;
