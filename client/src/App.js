@@ -20,7 +20,7 @@ class App extends Component {
             <Route path="/create_blog">
               <CreateBlog />
             </Route>
-            <Route path="/users/login">
+            <Route path="/users/signin">
               <Login />
             </Route>
             <Route to="/users/signup">

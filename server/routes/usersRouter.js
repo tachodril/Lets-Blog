@@ -1,6 +1,9 @@
 const express = require("express");
 const usersRouter = express.Router();
 const User = require("../models/User");
+const jwt = require("jsonwebtoken");
+
+const jwtKey = "levelofquality";
 
 usersRouter
   .get("/signup", (req, res, next) => {
@@ -45,10 +48,14 @@ usersRouter
         console.log(result);
 
         if (!result) {
-          res.status(404).send("User not available in database...");
-        } else {
-          res.status(200).send("User found");
+          return res.status(401).send("User not available in database...");
         }
+
+        const token = jwt.sign({ musername }, jwtKey, {
+          algorithm: "HS256"
+        });
+        console.log(token);
+        res.cookie("token", token).end();
       })
       .catch(e => res.send(e));
   });

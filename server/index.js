@@ -9,6 +9,7 @@ const bodyParser = require("body-parser");
 
 const session = require("express-session");
 const FileStore = require("session-file-store")(session);
+const cookieParser = require("cookie-parser");
 
 const app = express();
 app.use(cors());
@@ -23,20 +24,7 @@ mongoose.connect(
   }
 );
 
-// app.use(
-//   session({
-//     name: "session-id",
-//     secret: "12345-67890-09876-54321",
-//     saveUninitialized: false,
-//     resave: false,
-//     store: new FileStore()
-//   })
-// );
-
-// function auth(req, res, next) {
-//   console.log(req.session);
-// }
-// app.use(auth);
+app.use(cookieParser());
 
 app.use("/blogs", blogsRouter);
 app.use("/users", userRouter);

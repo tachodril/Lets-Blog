@@ -6,7 +6,7 @@ import { Redirect } from "react-router-dom";
 
 var buttonStyle = {
   padding: "10px",
-  marginLeft: "300px",
+  marginLeft: "30%",
   marginTop: "50px"
 };
 
@@ -14,7 +14,8 @@ class Home extends Component {
   state = {
     isLoaded: false,
     blogList: [],
-    flag: 0
+    flag: 0,
+    login_flag: 0
   };
 
   componentWillMount() {
@@ -25,14 +26,19 @@ class Home extends Component {
         console.log(this.state.blogList);
         console.log("connected to node server");
       })
-      .catch(err => console.log(err));
+      .catch(err => {
+        this.setState({ login_flag: 1 });
+        console.log(err);
+      });
   }
 
   render() {
-    const { isLoaded, blogList, flag } = this.state;
+    const { isLoaded, blogList, flag, login_flag } = this.state;
     //console.log(blogList);
 
-    if (flag) {
+    if (login_flag) {
+      return <Redirect to="/users/signin"></Redirect>;
+    } else if (flag) {
       return <Redirect to="/create_blog"></Redirect>;
     } else if (!isLoaded) {
       return <div>Loading Please Wait...</div>;

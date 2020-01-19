@@ -29,7 +29,7 @@ export default function MediaCard(props) {
       className={classes.card}
       style={{
         padding: "10px",
-        marginLeft: "200px",
+        marginLeft: "30%",
         marginTop: "50px"
       }}
     >
