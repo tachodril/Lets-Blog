@@ -45,7 +45,7 @@ usersRouter
         console.log(result);
 
         if (!result) {
-          res.send("User not available in database...");
+          res.status(404).send("User not available in database...");
         } else {
           res.status(200).send("User found");
         }
